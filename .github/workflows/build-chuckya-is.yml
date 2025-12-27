@@ -26,9 +26,9 @@ jobs:
 
       - name: compile masto-fe
         run: |
-          git clone https://forged.synth.download/sd/chuckya-fe-standalone.git && chmod +x /home/runner/work/synth.download/synth.download/symlink.sh && cd chuckya-fe-standalone
+          git clone https://forged.synth.download/sd/chuckya-fe-standalone.git && chmod +x /home/runner/work/actions/actions/symlink.sh && cd chuckya-fe-standalone
           export COREPACK_ENABLE_DOWNLOAD_PROMPT=0 && npx --yes update-browserslist-db@latest && $HOME/.local/bin/yarn && $HOME/.local/bin/yarn build:production
-          cd public && cp /home/runner/work/synth.download/synth.download/symlink.sh . && zip -r ../../chuckya-fe.zip .
+          cd public && cp /home/runner/work/actions/actions/symlink.sh . && zip -r ../../chuckya-fe.zip .
 
       - name: release
         uses: softprops/action-gh-release@v2
