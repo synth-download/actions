@@ -1,0 +1,37 @@
+name: build and release nicolium
+
+on:
+  schedule:
+    - cron: "00 06 * * *"
+  push:
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - run: |
+          mkdir -p $HOME/.local/bin
+          corepack enable pnpm --install-directory $HOME/.local/bin
+
+      - name: compile masto-fe
+        run: |
+          git clone https://codeberg.org/mkljczk/nicolium.git && cd nicolium
+          export COREPACK_ENABLE_DOWNLOAD_PROMPT=0 && export WITH_LANDING_PAGE=1 && $HOME/.local/bin/pnpm install && $HOME/.local/bin/pnpm -F pl-api build && $HOME/.local/bin/pnpm -F nicolium build
+          cd packages/nicolium/dist && zip -r ../../../../nicolium.zip .
+
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: fedi-frontend
+          make_latest: true
+          files: nicolium.zip
