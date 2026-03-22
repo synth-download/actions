@@ -26,7 +26,7 @@ jobs:
       - name: compile masto-fe
         run: |
           git clone https://codeberg.org/mkljczk/nicolium.git && cd nicolium
-          export COREPACK_ENABLE_DOWNLOAD_PROMPT=0 && export WITH_LANDING_PAGE=1 && $HOME/.local/bin/pnpm install && $HOME/.local/bin/pnpm -F pl-api build && $HOME/.local/bin/pnpm -F nicolium build
+          export COREPACK_ENABLE_DOWNLOAD_PROMPT=0 && export WITH_LANDING_PAGE=true && $HOME/.local/bin/pnpm install && $HOME/.local/bin/pnpm -F pl-api build && $HOME/.local/bin/pnpm -F nicolium build
           cd packages/nicolium/dist && zip -r ../../../../nicolium.zip .
 
       - name: release
