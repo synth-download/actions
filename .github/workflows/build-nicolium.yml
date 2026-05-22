@@ -24,7 +24,7 @@ jobs:
 
       - name: compile masto-fe
         run: |
-          git clone https://codeberg.org/mkljczk/nicolium.git && cd nicolium
+          git clone https://codeberg.org/nicolium/nicolium.git && cd nicolium
           export COREPACK_ENABLE_DOWNLOAD_PROMPT=0 && export WITH_LANDING_PAGE=true && pnpm install --no-frozen-lockfile && pnpm -F pl-api build && pnpm -F nicolium build
           cd packages/nicolium/dist && zip -r ../../../../nicolium.zip .
 
